@@ -1,0 +1,28 @@
+service: cloud-project
+
+provider:
+    name: aws
+    region: eu-west-2
+    runtime: provided
+    stage: dev
+    environment:
+        APP_ENV: prod
+plugins:
+    - ./vendor/bref/bref
+
+functions:
+    website:
+        handler: public/index.php
+        timeout: 28
+        layers:
+            - ${bref:layer.php-73-fpm}
+        events:
+            -   http: 'ANY /'
+            -   http: 'ANY /{proxy+}'
+
+    console:
+        handler: bin/console
+        timeout: 120
+        layers:
+            - ${bref:layer.php-73}
+            - ${bref:layer.console}
