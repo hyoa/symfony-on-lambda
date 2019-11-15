@@ -1,5 +1,45 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Symfony and lambdas</h1>
+    <main id="landing" class="w-screen h-screen">
+        <div id="landing-background">
+        </div>
+        <section class="w-1/2 mx-auto -mt-10 bg-white shadow-md py-2 text-center">
+            <h1 class="text-4xl">Freelancer Tools</h1>
+            <p>
+                Enhance your productivity with some tools !
+            </p>
+        </section>
+        <section class="w-1/2 flex mx-auto">
+            <section class="w-1/2 p-4">
+                <div class="border border-gray-400">
+                    <header class="text-2xl text-center mb-2">
+                        <h3>FREE</h3>
+                    </header>
+                    <main>
+                       <table>
+                           <ul class="px-4 text-center">
+                               <li class="border-b border-gray-400 py-2">Manage your clients</li>
+                               <li class="py-2">Create invoice</li>
+                           </ul>
+                       </table>
+                    </main>
+                </div>
+            </section>
+            <section class="w-1/2 p-4">
+                <div class="border border-gray-400">
+                    <header class="text-2xl text-center mb-2">
+                        <h3>PREMIUM</h3>
+                    </header>
+                    <main>
+                        <ul class="px-4 text-center">
+                            <li class="border-b border-gray-400 py-2">All free features</li>
+                            <li class="border-b border-gray-400 py-2">Send mails</li>
+                            <li class="py-2">Relaunch</li>
+                        </ul>
+                    </main>
+                </div>
+            </section>
+        </section>
+    </main>
 {% endblock %}

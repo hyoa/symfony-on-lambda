@@ -7,8 +7,25 @@ provider:
     stage: dev
     environment:
         APP_ENV: prod
+
+custom:
+    prefix: ${self:service}-${self:provider.region}-${self:provider.stage}
+
 plugins:
     - ./vendor/bref/bref
+
+package:
+    exclude:
+        - node_modules/**
+        - var/log/**
+        - public/build/**
+        - var/cache/**
+        - '!var/cache/prod/**'
+        - assets/**
+        - tests/**
+    include:
+        - public/build/manifest.json
+        - public/build/entrypoints.json
 
 functions:
     website:
@@ -26,3 +43,20 @@ functions:
         layers:
             - ${bref:layer.php-73}
             - ${bref:layer.console}
+
+resources:
+    Resources:
+        Assets:
+            Type: AWS::S3::Bucket
+            Properties:
+                BucketName: ${self:custom.prefix}-assets
+        AssetsPolicy:
+            Type: AWS::S3::BucketPolicy
+            Properties:
+                Bucket: !Ref Assets
+                PolicyDocument:
+                    Statement:
+                        - Effect: Allow
+                          Principal: '*'
+                          Action: 's3:GetObject'
+                          Resource: arn:aws:s3:::${self:custom.prefix}-assets/*
