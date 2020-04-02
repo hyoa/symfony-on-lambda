@@ -6,7 +6,22 @@ provider:
     runtime: provided
     stage: dev
     environment:
-        APP_ENV: prod
+        APP_ENV: dev
+        APP_AWS_REGION: 'eu-west-2'
+        APP_AWS_VERSION: 'latest'
+        APP_AWS_DYNAMODB_CREDENTIAL_KEY: ${ssm:/${self:service}/${self:provider.stage}/key}
+        APP_AWS_DYNAMODB_CREDENTIAL_SECRET: ${ssm:/${self:service}/${self:provider.stage}/secret}
+        APP_AWS_RESOURCE_PREFIX: ${self:custom.prefix}
+    iamRoleStatements:
+        - Effect: Allow
+          Action:
+              - dynamodb:Query
+              - dynamodb:Scan
+              - dynamodb:GetItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+          Resource: "arn:aws:dynamodb:eu-west-2:*:table/*"
 
 custom:
     prefix: ${self:service}-${self:provider.region}-${self:provider.stage}
@@ -60,3 +75,16 @@ resources:
                           Principal: '*'
                           Action: 's3:GetObject'
                           Resource: arn:aws:s3:::${self:custom.prefix}-assets/*
+        SessionTable:
+            Type: AWS::DynamoDB::Table
+            Properties:
+                TableName: ${self:custom.prefix}-sessionsTable
+                AttributeDefinitions:
+                    - AttributeName: id
+                      AttributeType: S
+                KeySchema:
+                    - AttributeName: id
+                      KeyType: HASH
+                ProvisionedThroughput:
+                    ReadCapacityUnits: 1
+                    WriteCapacityUnits: 1

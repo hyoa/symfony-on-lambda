@@ -25,3 +25,18 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Services\AwsClient:
+        arguments:
+            $region: '%env(resolve:APP_AWS_REGION)%'
+            $version: '%env(resolve:APP_AWS_VERSION)%'
+            $dynamoDbCredentialKey: '%env(resolve:APP_AWS_DYNAMODB_CREDENTIAL_KEY)%'
+            $dynamoDbCredentialSecretKey: '%env(resolve:APP_AWS_DYNAMODB_CREDENTIAL_SECRET)%'
+
+    App\Services\SessionHandler:
+        factory: ['App\Services\DynamoDbSessionHandlerFactory', 'build']
+        arguments:
+            - "@=service('App\\\\Services\\\\AwsClient').dynamoDbClient()"
+            - '%env(resolve:APP_AWS_RESOURCE_PREFIX)%'
+        calls:
+            - method: register
