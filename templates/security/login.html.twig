@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <section id="landing">
+        <div id="landing-background">
+        </div>
+        <section class="w-1/2 mx-auto -mt-10 bg-white shadow-md py-2 px-4 text-center rounded">
+            <form method="post" class="text-left">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+
+                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                <label for="inputEmail">Email</label>
+                <input
+                    type="email"
+                    value="{{ last_username }}"
+                    name="email" id="inputEmail"
+                    class="block border border-gray-400 p-2 w-full"
+                    required
+                    autofocus
+                >
+
+                <label for="inputPassword">Password</label>
+                <input
+                    type="password"
+                    name="password"
+                    id="inputPassword"
+                    class="block border border-gray-400 p-2 w-full"
+                    required
+                >
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+
+                {#
+                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                    See https://symfony.com/doc/current/security/remember_me.html
+
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> Remember me
+                        </label>
+                    </div>
+                #}
+
+                <button class="bg-blue-400 text-white p-2 rounded-sm mt-2" type="submit">
+                    Sign in
+                </button>
+            </form>
+        </section>
+    </section>
+{% endblock %}
