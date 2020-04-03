@@ -40,3 +40,7 @@ services:
             - '%env(resolve:APP_AWS_RESOURCE_PREFIX)%'
         calls:
             - method: register
+
+    App\Repository\UserRepository:
+        arguments:
+            $tableName: '%env(APP_AWS_RESOURCE_PREFIX)%-usersTable'

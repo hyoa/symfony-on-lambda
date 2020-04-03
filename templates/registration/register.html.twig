@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <section id="landing">
+        <div id="landing-background">
+        </div>
+        <section class="w-1/2 mx-auto -mt-10 bg-white shadow-md py-2 px-4 rounded">
+            Please register
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword) }}
+                {{ form_row(registrationForm.agreeTerms) }}
+
+                <button class="bg-blue-400 text-white p-2 rounded-sm mt-2">Register</button>
+            {{ form_end(registrationForm) }}
+        </section>
+    </section>
+{% endblock %}

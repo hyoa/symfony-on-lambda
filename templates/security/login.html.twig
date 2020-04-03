@@ -6,8 +6,8 @@
     <section id="landing">
         <div id="landing-background">
         </div>
-        <section class="w-1/2 mx-auto -mt-10 bg-white shadow-md py-2 px-4 text-center rounded">
-            <form method="post" class="text-left">
+        <section class="w-1/2 mx-auto -mt-10 bg-white shadow-md py-2 px-4 rounded">
+            <form method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
@@ -24,7 +24,6 @@
                     type="email"
                     value="{{ last_username }}"
                     name="email" id="inputEmail"
-                    class="block border border-gray-400 p-2 w-full"
                     required
                     autofocus
                 >
@@ -34,7 +33,6 @@
                     type="password"
                     name="password"
                     id="inputPassword"
-                    class="block border border-gray-400 p-2 w-full"
                     required
                 >
 

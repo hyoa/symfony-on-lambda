@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main id="landing" class="w-screen h-screen bg-blue-100">
+        <div id="landing-background">
+        </div>
+        <section class="w-1/2 mx-auto -mt-10 bg-white shadow-md py-2 text-center rounded">
+            <h1 class="text-4xl">Welcome {{ user.email }}</h1>
+        </section>
+    </main>
+{% endblock %}

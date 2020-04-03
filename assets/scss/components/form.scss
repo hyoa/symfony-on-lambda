@@ -1,0 +1,5 @@
+form {
+  input[type="text"], input[type="email"], input[type="password"] {
+    @apply block border border-gray-400 p-2 w-full;
+  }
+}
