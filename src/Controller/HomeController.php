@@ -12,7 +12,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function homeAction(SessionInterface $session): Response
+    public function homeAction(): Response
     {
         return $this->render('home/index.html.twig');
     }
